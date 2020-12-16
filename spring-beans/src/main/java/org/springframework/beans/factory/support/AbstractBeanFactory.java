@@ -232,7 +232,11 @@ public abstract class AbstractBeanFactory extends FactoryBeanRegistrySupport imp
 				throw new BeanCurrentlyInCreationException(beanName);
 			}
 
-            // 如果当前容器中没有找到，则从父类容器中加载
+            // 如果当前容器中没有找到，则从父类容器中加载,父类容器可以通过
+			// ApplicationContext parent = new ClassPathXmlApplicationContext("parentXml.xml");
+			// ApplicationContext child  = new ClassPathXmlApplicationContext(new String("childXml.xml",parent));
+			//这种方式创建
+			//子工厂可以获取父工厂中bean实例，父工厂不能获取子工厂中的bean实例
 			// Check if bean definition exists in this factory.
 			BeanFactory parentBeanFactory = getParentBeanFactory();
 			if (parentBeanFactory != null && !containsBeanDefinition(beanName)) {
